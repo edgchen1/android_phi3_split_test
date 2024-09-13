@@ -1,0 +1,1 @@
+libonnxruntime.so and libonnxruntime-genai.so should be added in this directory.

@@ -31,8 +31,8 @@ add_library(phi3splittest SHARED
 add_library(onnxruntime SHARED IMPORTED)
 set_target_properties(onnxruntime PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/${CMAKE_ANDROID_ARCH_ABI}/libonnxruntime.so)
 
-add_library(onnxruntime-genai SHARED IMPORTED)
-set_target_properties(onnxruntime-genai PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/${CMAKE_ANDROID_ARCH_ABI}/libonnxruntime-genai.so)
+#add_library(onnxruntime-genai SHARED IMPORTED)
+#set_target_properties(onnxruntime-genai PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/${CMAKE_ANDROID_ARCH_ABI}/libonnxruntime-genai.so)
 
 # Specifies libraries CMake should link to your target library. You
 # can link libraries from various origins, such as libraries defined in this
@@ -42,6 +42,9 @@ target_link_libraries(phi3splittest PRIVATE
         android
         log)
 
-target_link_libraries(phi3splittest PRIVATE onnxruntime onnxruntime-genai)
+target_link_libraries(phi3splittest PRIVATE
+        onnxruntime
+        #onnxruntime-genai
+)
 
 target_include_directories(phi3splittest PRIVATE ${CMAKE_SOURCE_DIR}/include)

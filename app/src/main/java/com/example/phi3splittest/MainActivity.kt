@@ -1,8 +1,5 @@
 package com.example.phi3splittest
 
-import ai.onnxruntime.OrtEnvironment
-import ai.onnxruntime.OrtLoggingLevel
-import ai.onnxruntime.OrtSession
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.system.Os

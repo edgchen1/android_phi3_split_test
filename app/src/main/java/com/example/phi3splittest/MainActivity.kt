@@ -1,5 +1,8 @@
 package com.example.phi3splittest
 
+import ai.onnxruntime.OrtEnvironment
+import ai.onnxruntime.OrtLoggingLevel
+import ai.onnxruntime.OrtSession
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.system.Os
@@ -14,8 +17,8 @@ class MainActivity : AppCompatActivity() {
     private var backgroundExecutor = Executors.newSingleThreadExecutor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val adspLibraryPath = applicationContext.applicationInfo.nativeLibraryDir
-        Os.setenv("ADSP_LIBRARY_PATH", adspLibraryPath, true)
+        val nativeLibraryPath = applicationContext.applicationInfo.nativeLibraryDir
+        Os.setenv("ADSP_LIBRARY_PATH", nativeLibraryPath, true)
 
         System.loadLibrary("phi3splittest")
 
@@ -29,7 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             backgroundExecutor.submit {
-                val result = runPhi3()
+                val modelBytes = resources.openRawResource(R.raw.single_add).readBytes()
+                val result = runModel(modelBytes)
 
                 runOnUiThread {
                     binding.sampleText.text = result
@@ -49,7 +53,7 @@ class MainActivity : AppCompatActivity() {
      */
     external fun stringFromJNI(): String
 
-    external fun runPhi3(): String
+    external fun runModel(modelBytes: ByteArray): String
 
     companion object {
         val tag: String = "phi3splittest"

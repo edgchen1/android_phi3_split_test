@@ -6,11 +6,7 @@ plugins {
 }
 
 android {
-    packaging {
-        jniLibs {
-            useLegacyPackaging = false
-        }
-    }
+    packaging.jniLibs.useLegacyPackaging = true
 
     namespace = "com.example.phi3splittest"
     compileSdk = 34

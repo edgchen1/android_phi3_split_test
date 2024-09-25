@@ -29,7 +29,9 @@ std::string RunPhi3(const char* model_path) {
     tokenizer->Encode(prompt.c_str(), *sequences);
     const size_t num_tokens = sequences->SequenceCount(0);
     LogF("num_tokens: %zu", num_tokens);
-    sequences->PadSequence(space_token, seq_len, 0);
+    for (size_t i = num_tokens; i < seq_len; ++i) {
+        sequences->Append(space_token, 0);
+    }
 
     std::array<float, seq_len> attn_mask{};
     for (size_t i = 0; i < std::min(seq_len, num_tokens); ++i) {
@@ -89,6 +91,6 @@ Java_com_example_phi3splittest_MainActivity_runPhi3(JNIEnv *env, jobject thiz) {
     const auto adsp_library_path = std::getenv("ADSP_LIBRARY_PATH");
     LogF("ADSP_LIBRARY_PATH = %s", (adsp_library_path != nullptr) ? adsp_library_path : "not set");
 
-    std::string result = RunPhi3("/data/local/tmp/phi3-split/phi3-split-qnn-updated");
+    std::string result = RunPhi3("/data/local/tmp/phi3-split/phi3.5-split-qnn");
     return env->NewStringUTF(result.c_str());
 }
